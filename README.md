@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Odświeżona strona sp1ozarow.pl
 
-## Getting Started
+Jest to odświeżona wersja strony http://sp1ozarow.pl, stworzona przy użyciu technologii:
 
-First, run the development server:
+- [Next.js](https://nextjs.org/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Cheerio](https://cheerio.js.org/) (do interpretacji danych z serwisu)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Struktura projektu
+
+- `src/app`: Zawiera strony projektu oraz API.
+- `src/components`: Zawiera komponenty używane w aplikacji.
+- `src/lib`: Zawiera funkcje pomocnicze dla komponentów.
+- `src/utils`: Zawiera funkcje do interpretacji danych ze strony sp1ozarow.pl.
+
+## Pierwsze kroki
+
+Po pierwsze, zainstaluj wymagane paczki:
+
+```sh
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Następnie, uruchom serwer deweloperski:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```js
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Otwórz http://localhost:3000 w przeglądarce, aby zobaczyć stronę.
 
-## Learn More
+## Budowanie i uruchamianie w Produkcji
 
-To learn more about Next.js, take a look at the following resources:
+Aby wybudować aplikację, użyj komendy:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```js
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Po tym, możesz uruchomić serwer w wersji produkcyjnej:
 
-## Deploy on Vercel
+```js
+npm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Współpraca
+Zapraszamy do tworzenia Pull Requestów. W przypadku większych zmian, prosimy o otwarcie nowego zgłoszenia (issue), aby móc najpierw omówić proponowane modyfikacje.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Jeśli znajdziesz błąd, prosimy o otwarcie nowego zgłoszenia (issue), abyśmy mogli go naprawić.
+
+## Uznania:
+- Oryginalna strona szkoły: **Krzysztof Markowski**
+- Logo szkoły: **Marcel Szczepek**

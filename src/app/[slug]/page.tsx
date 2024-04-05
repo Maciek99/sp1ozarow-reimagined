@@ -17,13 +17,9 @@ import { ArrowLeft } from "lucide-react"
 async function getData(slug: string): Promise<ArticleContent | { error: string }> {
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/article?slug=${slug}`, {
-    // TODO
-    /*
     next: {
       revalidate: 60 * 60 * 8 // 8 hours
     }
-    */
-   cache: 'no-cache'
   })
   if (!res.ok) {
     return {
@@ -46,7 +42,7 @@ export default async function ArticlePage({ params, searchParams }: { params: { 
 
 
   return (
-    <Card className="max-w-screen-xl">
+    <Card className="max-w-[1390px]">
       <CardHeader className="items-start">
         <CardTitle className="text-3xl">{data.title}</CardTitle>
         <div className="flex flex-row gap-8 items-center justify-center">

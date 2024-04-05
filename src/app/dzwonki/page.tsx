@@ -106,7 +106,7 @@ const data = [
 
 export default function DzwonkiPage() {
   return (
-    <Card className="max-w-screen-xl">
+    <Card>
       <CardHeader className="items-start">
         <CardTitle className="text-3xl">Dzwonki</CardTitle>
         <div className="flex flex-row gap-8 items-center justify-center">

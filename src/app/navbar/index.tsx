@@ -44,7 +44,7 @@ export const Navbar = ({
   }
 
   return (
-    <nav className={`flex max-[1060px]:flex-col  flex-row pad-5 bg-card border rounded-md  justify-between `}>
+    <nav className={`flex max-[1060px]:flex-col  flex-row pad-5 bg-card border rounded-md gap-16 justify-between max-w-[1390px]`}>
       <div className="flex flex-row max-[1430px]:flex-col max-[1060px]:flex-row max-[900px]:flex-col">
         <div className="flex flex-row max-[650px]:hidden">
           <NavbarButton href="/category/aktualnosci" text="Aktualności" />

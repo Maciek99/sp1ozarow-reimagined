@@ -12,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import Link from "next/link"
 
 
 export default function ArticleContentComponent({
@@ -23,7 +24,9 @@ export default function ArticleContentComponent({
 
     link(href: string, text: string) {
       {
-        return (<a className="text-green-500 hover:underline" href={href} target="_blank">{text}</a>)
+        const url = new URL(href)
+        const newHref = href.endsWith('/') ? url.pathname : href 
+        return (<Link key={href} className="text-green-500 hover:underline" href={newHref}>{text}</Link>)
       }
     },
     list(body: string, ordered: boolean) {

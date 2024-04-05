@@ -31,13 +31,9 @@ async function getData(category: string, page?: string): Promise<Article[] | { e
 
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/articles?${searchParams.toString()}`, {
-    //TODO
-    /*
     next: {
       revalidate: 60 * 60 * 8 // 8 hours
     }
-    */
-   cache: 'no-cache'
   })
   if (!res.ok) {
     return {
