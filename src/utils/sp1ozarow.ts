@@ -2,7 +2,7 @@ import axios from "axios";
 import cheerio from "cheerio";
 import { dateStringToDate } from "./date";
 import { tabletojson } from "tabletojson";
-import TurndownService from "turndown";
+import html2md from "html-to-md";
 
 export const SCHOOL_WEBSITE_URL = "http://sp1ozarow.pl";
 
@@ -216,15 +216,12 @@ export async function getArticle(slug: string) {
 
     console.log($("div .entry-content").html())
 
-    const turndownService = new TurndownService();
 
-    console.log('new TurndownService')
-
-    let markdown = turndownService.turndown(
+    let markdown = html2md(
       $("div .entry-content").html() || ""
     );
 
-    console.log("turndownService.turndown");
+    console.log("html2md");
 
     // Fixes lists that are not formatted correctly
     // find all llnes that begin with \- and remove the backslash and add a space between the - and the text
