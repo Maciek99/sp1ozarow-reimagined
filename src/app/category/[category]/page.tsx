@@ -106,7 +106,7 @@ export default async function CategoryPage({ params, searchParams }: { params: {
             </CardHeader>
             <CardFooter className="justify-between">
               <span className="flex flex-row justify-center items-center gap-1 text-sm text-muted-foreground">
-                <Clock size={16} className="text-white" />
+                <Clock size={16} className="text-card-foreground" />
                 {post.date.toLocaleDateString()} {post.date.toLocaleTimeString(undefined, {
                   hour: '2-digit',
                   minute: '2-digit'
