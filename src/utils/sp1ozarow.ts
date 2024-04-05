@@ -216,7 +216,7 @@ export async function getArticle(slug: string) {
     // Find all thast begin with ```\nTABLE and remove the backslashes
     const tableRegex = /\`\`\`\nTABLE\n/mg
     const tableMatches = markdown.match(tableRegex);
-    console.log(tableMatches)
+    console.log()
     if (tableMatches) {
       tableMatches.forEach((match) => {
         markdown = markdown.replace(match, "");
@@ -225,7 +225,6 @@ export async function getArticle(slug: string) {
 
     const tableEndRegex = /TABLEEND\n\`\`\`/mg
     const tableEndMatches = markdown.match(tableEndRegex);
-    console.log(tableEndMatches)
     if(tableEndMatches) {
       tableEndMatches.forEach((match) => {
         markdown = markdown.replace(match, "");
