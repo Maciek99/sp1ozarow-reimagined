@@ -32,25 +32,14 @@ export default function ArticleContentComponent({
       }
       return (<ul className="list-disc list-inside">{body}</ul>)
     },
+    listItem(children) {
+      return (<li key={Math.random().toString(36).substring(7)}>{children}</li>)
+    },
     image(src, alt, title) {
-      const toOptimizeExtensions = ['jpg', 'jpeg', 'png']
-
-      const extension = src.split('.').pop()
-      const shouldOptimize = toOptimizeExtensions.includes(extension!)
-      if (shouldOptimize) {
-        return (
-          <NextImage
-            className="rounded-lg"
-            width={1024}
-            height={1024}
-            alt={alt} title={title || undefined} src={src}
-          />
-        )
-      }
-
       return (
         // eslint-disable-next-line @next/next/no-img-element
         <img
+        className="rounded-lg"
           src={src}
           alt={alt}
           title={title || undefined}
@@ -92,11 +81,12 @@ export default function ArticleContentComponent({
         </TableBody>
       )
     },
+
   }
 
 
   return (
-    <article className="flex flex-col ">
+    <article className="flex flex-col gap-5">
       <Markdown
         value={markdown.replace(/\n(?=\n)/g, "\n<br>")}
         breaks={true}

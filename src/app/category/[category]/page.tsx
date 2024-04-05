@@ -31,9 +31,13 @@ async function getData(category: string, page?: string): Promise<Article[] | { e
 
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/articles?${searchParams.toString()}`, {
+    //TODO
+    /*
     next: {
       revalidate: 60 * 60 * 8 // 8 hours
     }
+    */
+   cache: 'no-cache'
   })
   if (!res.ok) {
     return {
@@ -74,7 +78,7 @@ export default async function CategoryPage({ params, searchParams }: { params: {
     <div className="flex flex-col gap-5">
       {
         data.map((post) => (
-          <Card key={post.slug} className="max-w-5xl">
+          <Card key={post.slug} className="max-w-screen-2xl">
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
               <CardDescription>
@@ -113,13 +117,6 @@ export default async function CategoryPage({ params, searchParams }: { params: {
                 <PaginationLink href={`/category/${params.category}?page=${p}`}>{p}</PaginationLink>
               </PaginationItem>
             ))
-          }
-          {
-            page > 2 && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )
           }
           {
             page > 1 && (
