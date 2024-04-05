@@ -19,7 +19,26 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import { redirect } from "next/navigation";
+import { ResolvingMetadata } from "next"
 
+
+
+export async function generateMetadata(
+  { params, searchParams }: { params: { category: string }, searchParams: { page: string } },
+) {
+  const data = await getData(params.category, searchParams.page)
+  if ('error' in data) {
+    return {
+      title: 'Błąd',
+      description: 'Nie udało się pobrać danych',
+    }
+  }
+
+
+  return {
+    title: data[0]?.categories[0].name + " | Szkoła Podstawowa nr 1 w Ożarowie Mazowieckim",
+  }
+}
 
 
 async function getData(category: string, page?: string): Promise<Article[] | { error: string }> {
@@ -80,7 +99,7 @@ export default async function CategoryPage({ params, searchParams }: { params: {
               <CardDescription>
                 {
                   post.categories.map((category, index) => (
-                    <Link key={category.slug} href={`/category/${category.slug}`} >{category.name}{index < post.categories.length -1 ? ', ' : ''}</Link>
+                    <Link key={category.slug} href={`/category/${category.slug}`} >{category.name}{index < post.categories.length - 1 ? ', ' : ''}</Link>
                   ))
                 }
               </CardDescription>
@@ -105,7 +124,7 @@ export default async function CategoryPage({ params, searchParams }: { params: {
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href={`/category/${params.category}?page=${page+1}`} />
+            <PaginationPrevious href={`/category/${params.category}?page=${page + 1}`} />
           </PaginationItem>
           {
             pagination.map(p => (

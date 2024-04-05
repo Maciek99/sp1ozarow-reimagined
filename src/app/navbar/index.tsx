@@ -1,6 +1,8 @@
 'use client'
 
+import { ThemeSwitcher } from "@/components/theme-switcher"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -38,13 +40,10 @@ export const Navbar = ({
     menus: Menu[]
   }
 }) => {
-  const pageSize = {
-    width: 1920,
-    height: 1080
-  }
+  const [searchTerm, setSearchTerm] = useState('')
 
   return (
-    <nav className={`flex max-[1060px]:flex-col  flex-row pad-5 bg-card border rounded-md gap-16 justify-between max-w-[1390px]`}>
+    <nav className={`flex max-[1060px]:flex-col max-[1060px]:gap-2 max-[650px]:gap-0  flex-row pad-5 bg-card border rounded-md gap-16 justify-between max-w-screen-2xl`}>
       <div className="flex flex-row max-[1430px]:flex-col max-[1060px]:flex-row max-[900px]:flex-col">
         <div className="flex flex-row max-[650px]:hidden">
           <NavbarButton href="/category/aktualnosci" text="Aktualności" />
@@ -59,33 +58,34 @@ export const Navbar = ({
           <NavbarButton href="/kontakt" text="Kontakt" />
           <NavbarButton href="https://sp1ozarow.bip.gov.pl/" text="BIP" />
         </div>
-        <NavigationMenu className="hidden max-[650px]:block">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="text-green-500">Najważniejsze</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <NavbarButton href="/category/aktualnosci" text="Aktualności" />
-                <NavbarButton href="/plan-lekcji" text="Plan lekcji" />
-                <NavbarButton href="/dzwonki" text="Dzwonki" />
-                <NavbarButton href="/galeria" text="Galeria" />
-                <NavbarButton href="/category/rada-rodzicow" text="Rada Rodziców" />
-                <NavbarButton href="/konkurs-maly-pitagoras" text="Mały Pitagoras" />
-                <NavbarButton href="/dziennik-elektroniczny" text="eDziennik" />
-                <NavbarButton href="/kontakt" text="Kontakt" />
-                <NavbarButton href="https://sp1ozarow.bip.gov.pl/" text="BIP" />
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
       </div>
       <NavigationMenu className={`max-[490px]:flex flex-wrap  items-center justify-start`}>
+        <NavigationMenuList className="hidden max-[650px]:block">
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="text-green-500">Najważniejsze</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <NavbarButton href="/category/aktualnosci" text="Aktualności" />
+              <NavbarButton href="/plan-lekcji" text="Plan lekcji" />
+              <NavbarButton href="/dzwonki" text="Dzwonki" />
+              <NavbarButton href="/galeria" text="Galeria" />
+              <NavbarButton href="/category/rada-rodzicow" text="Rada Rodziców" />
+              <NavbarButton href="/konkurs-maly-pitagoras" text="Mały Pitagoras" />
+              <NavbarButton href="/dziennik-elektroniczny" text="eDziennik" />
+              <NavbarButton href="/kontakt" text="Kontakt" />
+              <NavbarButton href="https://sp1ozarow.bip.gov.pl/" text="BIP" />
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
         {data.menus.map(menu => (
           <NavigationMenuList key={menu.title}>
             <NavigationMenuItem>
               <NavigationMenuTrigger>{menu.title}</NavigationMenuTrigger>
               <NavigationMenuContent >
-                <div className="w-96">
-                  {menu.links.map(link => (
+                <div className="w-[512px] max-[560px]:w-96 max-[430px]:w-80">
+                  <Input placeholder="Wyszukaj" value={searchTerm} onChange={(e) => setSearchTerm(e.currentTarget.value)} />
+                  {menu.links.filter((link) => {
+                    return link.name.toLowerCase().includes(searchTerm) || link.url.toLowerCase().includes(searchTerm)
+                  }).map(link => (
                     <NavigationMenuLink key={link.url}>
                       <Button variant={'link'}>
                         <Link href={link.url}>
@@ -99,6 +99,7 @@ export const Navbar = ({
             </NavigationMenuItem>
           </NavigationMenuList>
         ))}
+        <ThemeSwitcher />
       </NavigationMenu>
     </nav>
   )

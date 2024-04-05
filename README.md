@@ -1,4 +1,4 @@
-# Odświeżona strona sp1ozarow.pl
+# sp1ozarow.pl - Reimagined
 
 Jest to odświeżona wersja strony http://sp1ozarow.pl, stworzona przy użyciu technologii:
 
@@ -44,10 +44,12 @@ npm start
 ```
 
 ## Współpraca
+
 Zapraszamy do tworzenia Pull Requestów. W przypadku większych zmian, prosimy o otwarcie nowego zgłoszenia (issue), aby móc najpierw omówić proponowane modyfikacje.
 
 Jeśli znajdziesz błąd, prosimy o otwarcie nowego zgłoszenia (issue), abyśmy mogli go naprawić.
 
 ## Uznania:
+
 - Oryginalna strona szkoły: **Krzysztof Markowski**
 - Logo szkoły: **Marcel Szczepek**

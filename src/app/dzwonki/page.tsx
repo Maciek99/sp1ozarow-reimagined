@@ -20,89 +20,50 @@ import {
 
 import Link from "next/link"
 import fs from 'fs'
+import { Metadata } from "next"
 
 const data = [
   {
-    lesson: {
-      start: '08:00',
-      end: '08:45',
-    },
-    break: {
-      time: 10
-    }
+    lesson: { start: '08:00', end: '08:45', },
+    break: { time: 10 }
   },
   {
-    lesson: {
-      start: '08:55',
-      end: '09:40',
-    },
-    break: {
-      time: 10
-    }
+    lesson: { start: '08:55', end: '09:40', },
+    break: { time: 10 }
   },
   {
-    lesson: {
-      start: '09:50',
-      end: '10:35'
-    },
-    break: {
-      time: 10
-    }
+    lesson: { start: '09:50', end: '10:35' },
+    break: { time: 10 }
   },
   {
-    lesson: {
-      start: '10:45',
-      end: '11:30'
-    },
-    break: {
-      time: 20
-    },
-
+    lesson: { start: '10:45', end: '11:30' },
+    break: { time: 20 },
   },
   {
-    lesson: {
-      start: '11:50',
-      end: '12:35'
-    },
-    break: {
-
-      time: 20
-    }
+    lesson: { start: '11:50', end: '12:35' },
+    break: { time: 20 }
   },
   {
-    lesson: {
-      start: '12:55',
-      end: '13:40'
-    },
-    break: {
-      time: 15
-    }
+    lesson: { start: '12:55', end: '13:40' },
+    break: { time: 15 }
   },
   {
-    lesson: {
-      start: '13:55',
-      end: '14:40'
-    },
-    break: {
-      time: 10
-    }
+    lesson: { start: '13:55', end: '14:40' },
+    break: { time: 10 }
   },
   {
-    lesson: {
-      start: '14:50',
-      end: '15:35'
-    },
-    break: {
-      time: 10
-    }
+    lesson: { start: '14:50', end: '15:35' },
+    break: { time: 10 }
   },
   {
-    lesson: {
-      start: '15:45',
-      end: '16:30'
-    }
+    lesson: { start: '15:45', end: '16:30' }
   }
 ]
+
+
+export const metadata: Metadata = {
+  title: "Dzwonki | Szkoła Podstawowa nr 1 w Ożarowie Mazowieckim",
+};
 
 export default function DzwonkiPage() {
   return (

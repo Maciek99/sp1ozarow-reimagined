@@ -11,8 +11,26 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import ArticleContentComponent from "./client"
 import { ArrowLeft } from "lucide-react"
+import { ResolvingMetadata } from "next"
 
 
+
+export async function generateMetadata(
+  { params, searchParams }: { params: { slug: string }, searchParams: { category?: string } },
+  parent: ResolvingMetadata
+) { 
+  const slug = params.slug
+  const data = await getData(slug)
+  if ('error' in data) {
+    return {
+      title: 'Błąd',
+      description: 'Nie udało się pobrać danych',
+    }
+  }
+  return {
+    title: data.title + " | Szkoła Podstawowa nr 1 w Ożarowie Mazowieckim", 
+  }
+}
 
 async function getData(slug: string): Promise<ArticleContent | { error: string }> {
 
