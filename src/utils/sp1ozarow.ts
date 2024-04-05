@@ -96,9 +96,13 @@ export async function getArticle(slug: string) {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
 
+    console.log('fetching article:', url)
+
     const elementsToRemove = ["script", "style"];
     elementsToRemove.forEach((element) => $(element).remove());
 
+    console.log('removed elements:', elementsToRemove)
+    
     const replaceTables = () => {
       // Find all tables
       const tables = $("table");
@@ -149,6 +153,8 @@ export async function getArticle(slug: string) {
       });
     };
     replaceTables();
+
+    console.log('replaced tables')
 
     /*
     const parseGallery = async () => {
@@ -206,11 +212,13 @@ export async function getArticle(slug: string) {
         $(element).insertAfter($(element).parent());
       });
 
+      
+
     let markdown = turndownService.turndown(
       $("div .entry-content").html() || ""
     );
 
-    
+    console.log('turndownService.turndown')
 
     // Fixes lists that are not formatted correctly
     // find all llnes that begin with \- and remove the backslash and add a space between the - and the text
@@ -249,6 +257,8 @@ export async function getArticle(slug: string) {
 
 
     const title = $("h1.header-post-title-class").html();
+
+    console.log('returning article')
 
     return {
       title: title || "Brak tytułu",
