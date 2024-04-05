@@ -113,7 +113,7 @@ export default async function CategoryPage({ params, searchParams }: { params: {
                 })}
               </span>
               <Button variant="link">
-                <Link href={`${process.env.NEXT_PUBLIC_CLIENT_URL}/${post.slug}${params.category !== 'aktualnosci' ? `?category=${params.category}` : ''}`}>
+                <Link href={`/${post.slug}${params.category !== 'aktualnosci' ? `?category=${params.category}` : ''}`}>
                   Czytaj
                 </Link>
               </Button>
