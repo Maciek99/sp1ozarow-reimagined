@@ -87,7 +87,6 @@ export async function getArticles(url: string) {
   }
 }
 
-const turndownService = new TurndownService();
 
 export async function getArticle(slug: string) {
   try {
@@ -216,6 +215,10 @@ export async function getArticle(slug: string) {
     console.log("moved br out of strong");
 
     console.log($("div .entry-content").html())
+
+    const turndownService = new TurndownService();
+
+    console.log('new TurndownService')
 
     let markdown = turndownService.turndown(
       $("div .entry-content").html() || ""
