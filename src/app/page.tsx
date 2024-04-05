@@ -1,112 +1,120 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import Link from "next/link";
+import { Clock } from "lucide-react";
+
+const data = [
+  {
+    title: 'Warsztaty charakteryzatorskie „Dziewczyna z perłą”',
+    date: new Date('2024-03-26T10:12:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'warsztaty-charakteryzatorskie-2'
+  },
+  {
+    title: 'Spotkania z wychowawcami klas 4-8  styczeń  2024',
+    date: new Date('2024-03-13T09:37:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'spotkania-z-wychowawcami-klas-4-8-styczen-2024-2'
+  },
+  {
+    title: 'DZIEŃ OTWARTY (mała Szkoła) 12.03.2024 r.',
+    date: new Date('2024-03-10T08:35:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'dzien-otwarty-mala-szkola-12-03-2024-r'
+  },
+  {
+    title: 'PLAN REKOLEKCJI WIELKOPOSTNYCH  DLA UCZNIÓW KLAS I -III',
+    date: new Date('2024-03-06T10:26:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'plan-rekolekcji-wielkopostnych-dla-uczniow-klas-i-iii'
+  },
+  {
+    title: 'Rekolekcje wielkopostne dla uczniów z klas IV-VIII',
+    date: new Date('2024-03-01T12:21:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'rekolekcje-wielkopostne-dla-uczniow-z-klas-iv-viii'
+  },
+  {
+    title: 'Spotkanie informacyjne w sprawie naboru do klasy sportowej',
+    date: new Date('2024-02-28T12:23:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'spotkanie-informacyjne-w-sprawie-naboru-do-klasy-sportowej'
+  },
+  {
+    title: 'WYNIKI XX GMINNEGO KONKURSU ORTOGRAFICZNEGO „O PIÓRO BURMISTRZA OŻAROWA MAZOWIECKIEGO”  2023/2024',
+    date: new Date('2024-02-19T11:25:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'wyniki-xx-gminnego-konkursu-ortograficznego-o-pioro-burmistrza-ozarowa-mazowieckiego-20232024'
+  },
+  {
+    title: 'Szkolne eliminacje do Konkursu Recytatorskiego „Warszawska Syrenka”- klasy I-III',
+    date: new Date('2024-02-19T11:18:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'szkolne-eliminacje-do-konkursu-recytatorskiego-warszawska-syrenka-klasy-i-iii'
+  },
+  {
+    title: 'Webinarium dla rodziców i nauczycieli „Samotne dzieci i samotni rodzice, czyli o tym jak nie stracić kontaktu z własnym dzieckiem”',
+    date: new Date('2024-02-05T08:28:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'webinarium-dla-rodzicow-i-nauczycieli-samotne-dzieci-i-samotni-rodzice-czyli-o-tym-jak-nie-stracic-kontaktu-z-wlasnym-dzieckiem'
+  },
+  {
+    title: 'Rekrutacja do oddziału przedszkolnego i klasy pierwszej na rok szkolny 2024/2025',
+    date: new Date('2024-02-05T08:25:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'rekrutacja-do-oddzialu-przedszkolnego-i-klasy-pierwszej-na-rok-szkolny-20242025'
+  },
+  {
+    title: 'Podsumowanie akcji „Zima w mieście 2024”',
+    date: new Date('2024-02-02T11:41:00.000Z'),
+    categories: ['Aktualności'],
+    slug: 'podsumowanie-akcji-zima-w-miescie-2024'
+  },
+  {
+    title: 'Terminy przeprowadzania postępowania rekrutacyjnego i postępowania uzupełniającego do szkół ponadpodstawowych na terenie województwa mazowieckiego na rok szkolny 2024/2025',
+    date: new Date('2024-01-30T12:22:00.000Z'),
+    categories: ['Aktualności', 'Doradztwo zawodowe'],
+    slug: 'terminy-przeprowadzania-postepowania-rekrutacyjnego-i-postepowania-uzupelniajacego-do-szkol-ponadpodstawowych-na-terenie-wojewodztwa-mazowieckiego-na-rok-szkolny-20242025'
+  }
+]
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+    <main>
+      <div className="flex flex-col gap-5">
+        {
+          data.map((post) => (
+            <Card key={post.slug} className="max-w-2xl">
+              <CardHeader>
+                <CardTitle>{post.title}</CardTitle>
+                <CardDescription>
+                  {post.categories.join(', ')}
+                </CardDescription>
+              </CardHeader>
+              <CardFooter className="justify-between">
+                <span className="flex flex-row justify-center items-center gap-1 text-sm text-muted-foreground">
+                  <Clock size={16} className="text-white" />
+                  {post.date.toLocaleDateString()} {post.date.toLocaleTimeString(undefined, {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
+                </span>
+                <Button variant="link">
+                  <Link href={`http://sp1ozarow.pl/${post.slug}`}>
+                    Czytaj
+                  </Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))
+        }
       </div>
     </main>
   );
