@@ -60,7 +60,7 @@ export default async function ArticlePage({ params, searchParams }: { params: { 
 
 
   return (
-    <Card className="max-w-[1390px]">
+    <Card className="max-w-[1450px]">
       <CardHeader className="items-start">
         <CardTitle className="text-3xl">{data.title}</CardTitle>
         <div className="flex flex-row gap-8 items-center justify-center">
