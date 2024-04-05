@@ -215,6 +215,8 @@ export async function getArticle(slug: string) {
 
     console.log("moved br out of strong");
 
+    console.log($("div .entry-content").html())
+
     let markdown = turndownService.turndown(
       $("div .entry-content").html() || ""
     );
