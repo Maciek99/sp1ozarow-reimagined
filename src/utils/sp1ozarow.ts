@@ -2,7 +2,7 @@ import axios from "axios";
 import cheerio from "cheerio";
 import { dateStringToDate } from "./date";
 import { tabletojson } from "tabletojson";
-import TurndownService from "turndown";
+import html2md from "html-to-md";
 
 export const SCHOOL_WEBSITE_URL = "http://sp1ozarow.pl";
 
@@ -31,7 +31,6 @@ export interface Menu {
     name: string;
     url: string;
   }[];
-
 }
 
 export async function getArticles(url: string) {
@@ -63,7 +62,7 @@ export async function getArticles(url: string) {
         .each((index, element) => {
           categories.push({
             name: $(element).text().trim(),
-            slug: $(element).attr("href")?.split('/').at(-2)|| "",
+            slug: $(element).attr("href")?.split("/").at(-2) || "",
           });
         });
       const articleUrl = new URL(
@@ -88,7 +87,6 @@ export async function getArticles(url: string) {
   }
 }
 
-const turndownService = new TurndownService();
 
 export async function getArticle(slug: string) {
   try {
@@ -96,8 +94,10 @@ export async function getArticle(slug: string) {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
 
+
     const elementsToRemove = ["script", "style"];
     elementsToRemove.forEach((element) => $(element).remove());
+
 
     const replaceTables = () => {
       // Find all tables
@@ -201,16 +201,15 @@ export async function getArticle(slug: string) {
 
     $("form").remove();
 
-      // Move <br> out of <strong> tags
-      $("strong br").each((index, element) => {
-        $(element).insertAfter($(element).parent());
-      });
+    // Move <br> out of <strong> tags
+    $("strong br").each((index, element) => {
+      $(element).insertAfter($(element).parent());
+    });
 
-    let markdown = turndownService.turndown(
+
+    let markdown = html2md(
       $("div .entry-content").html() || ""
     );
-
-    
 
     // Fixes lists that are not formatted correctly
     // find all llnes that begin with \- and remove the backslash and add a space between the - and the text
@@ -233,7 +232,6 @@ export async function getArticle(slug: string) {
       });
     }
 
-    
     // Fixes over two new lines
     const regex3 = /(\n{2,})/gm;
     const matches3 = markdown.match(regex3);
@@ -246,9 +244,8 @@ export async function getArticle(slug: string) {
     // Replace all "fake dashes"  like –  (U+2013) with - (U+002D)
     markdown = markdown.replace(/–/g, "-");
 
-
-
     const title = $("h1.header-post-title-class").html();
+
 
     return {
       title: title || "Brak tytułu",
@@ -261,7 +258,6 @@ export async function getArticle(slug: string) {
   }
 }
 
-
 export async function getMenus() {
   try {
     // Fetch HTML content from the URL
@@ -272,49 +268,59 @@ export async function getMenus() {
     const $ = cheerio.load(html);
 
     const menus: {
-        title: string,
-        links: {
-            name: string,
-            url: string
-        }[]
+      title: string;
+      links: {
+        name: string;
+        url: string;
+      }[];
     }[] = [];
-    
 
-    const disallowedLinks = ['/category/aktualnosci/', '/plan-lekcji/', '/dzwonki/', ' /galeria/', '/category/rada-rodzicow/', '/konkurs-maly-pitagoras/', '/dziennik-elektroniczny/', '/kontakt/', 'https://sp1ozarow.bip.gov.pl/']
+    const disallowedLinks = [
+      "/category/aktualnosci/",
+      "/plan-lekcji/",
+      "/dzwonki/",
+      " /galeria/",
+      "/category/rada-rodzicow/",
+      "/konkurs-maly-pitagoras/",
+      "/dziennik-elektroniczny/",
+      "/kontakt/",
+      "https://sp1ozarow.bip.gov.pl/",
+    ];
 
     // Find the div with id="content" and iterate over each article
-    $('.widget_nav_menu').each((index, element) => {
-        const title = $(element).find('h3.widget-title').text().trim();
-        const links: {
-            name: string,
-            url: string
-        }[] = [];
-        $(element).find('ul li.menu-item').each((index, element) => {
-            const link = $(element).find('a');
-            const rawUrl = link.attr('href');
+    $(".widget_nav_menu").each((index, element) => {
+      const title = $(element).find("h3.widget-title").text().trim();
+      const links: {
+        name: string;
+        url: string;
+      }[] = [];
+      $(element)
+        .find("ul li.menu-item")
+        .each((index, element) => {
+          const link = $(element).find("a");
+          const rawUrl = link.attr("href");
 
-            // if is file: return the file url
-            // if not: return the slug
+          // if is file: return the file url
+          // if not: return the slug
 
-            const endsWithFile =! rawUrl?.endsWith('/')
-            if(['#'].includes(rawUrl!)) {
-                return;
-            }
-            const url = new URL(rawUrl || '')
+          const endsWithFile = !rawUrl?.endsWith("/");
+          if (["#"].includes(rawUrl!)) {
+            return;
+          }
+          const url = new URL(rawUrl || "");
 
-
-            links.push({
-                name: $(element).text().trim(),
-                url:(endsWithFile ? rawUrl : url.pathname) || ''
-            });
+          links.push({
+            name: $(element).text().trim(),
+            url: (endsWithFile ? rawUrl : url.pathname) || "",
+          });
         });
-        menus.push({
-            title,
-            links: links.filter(link => !disallowedLinks.includes(link.url))
-        })
+      menus.push({
+        title,
+        links: links.filter((link) => !disallowedLinks.includes(link.url)),
+      });
     });
-    return menus
+    return menus;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
   }
 }
