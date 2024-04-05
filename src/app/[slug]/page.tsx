@@ -37,7 +37,7 @@ async function getData(slug: string): Promise<ArticleContent | { error: string }
   const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/article?slug=${slug}`, {
     next: {
       revalidate: 60 * 60 * 8 // 8 hours
-    }
+    },
   })
   if (!res.ok) {
     return {

@@ -145,7 +145,7 @@ export async function getArticle(slug: string) {
 
       //replace tables in original content with markdown tables
       tables.each((index, element) => {
-        $(element).replaceWith(`<pre>${mdTables[index]}</pre>`);
+        $(element).replaceWith(`<pre>TABLE\n${mdTables[index]}TABLEEND</pre>`);
       });
     };
     replaceTables();
@@ -210,6 +210,28 @@ export async function getArticle(slug: string) {
     let markdown = html2md(
       $("div .entry-content").html() || ""
     );
+
+
+    // Fix tables
+    // Find all thast begin with ```\nTABLE and remove the backslashes
+    const tableRegex = /\`\`\`\nTABLE\n/mg
+    const tableMatches = markdown.match(tableRegex);
+    console.log(tableMatches)
+    if (tableMatches) {
+      tableMatches.forEach((match) => {
+        markdown = markdown.replace(match, "");
+      });
+    }
+
+    const tableEndRegex = /TABLEEND\n\`\`\`/mg
+    const tableEndMatches = markdown.match(tableEndRegex);
+    console.log(tableEndMatches)
+    if(tableEndMatches) {
+      tableEndMatches.forEach((match) => {
+        markdown = markdown.replace(match, "");
+      });
+    }
+  
 
     // Fixes lists that are not formatted correctly
     // find all llnes that begin with \- and remove the backslash and add a space between the - and the text
