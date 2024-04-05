@@ -25,7 +25,7 @@ export default function ArticleContentComponent({
     link(href: string, text: string) {
       {
         const url = new URL(href)
-        const newHref = href.endsWith('/') ? url.pathname : href 
+        const newHref = href.endsWith('/') ? url.pathname : href
         return (<Link key={href} className="text-green-500 hover:underline" href={newHref}>{text}</Link>)
       }
     },
@@ -39,10 +39,23 @@ export default function ArticleContentComponent({
       return (<li key={Math.random().toString(36).substring(7)}>{children}</li>)
     },
     image(src, alt, title) {
+      if (src.startsWith('http')) {
+        return (
+                  // eslint-disable-next-line @next/next/no-img-element
+
+          <img
+            className="rounded-lg"
+            src={`/api/image?image=${src}`}
+            alt={alt}
+            title={title || undefined}
+          />
+        )
+      }
+
       return (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-        className="rounded-lg"
+          className="rounded-lg"
           src={src}
           alt={alt}
           title={title || undefined}
