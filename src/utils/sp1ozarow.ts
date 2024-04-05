@@ -31,7 +31,6 @@ export interface Menu {
     name: string;
     url: string;
   }[];
-
 }
 
 export async function getArticles(url: string) {
@@ -63,7 +62,7 @@ export async function getArticles(url: string) {
         .each((index, element) => {
           categories.push({
             name: $(element).text().trim(),
-            slug: $(element).attr("href")?.split('/').at(-2)|| "",
+            slug: $(element).attr("href")?.split("/").at(-2) || "",
           });
         });
       const articleUrl = new URL(
@@ -96,13 +95,13 @@ export async function getArticle(slug: string) {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
 
-    console.log('fetching article:', url)
+    console.log("fetching article:", url);
 
     const elementsToRemove = ["script", "style"];
     elementsToRemove.forEach((element) => $(element).remove());
 
-    console.log('removed elements:', elementsToRemove)
-    
+    console.log("removed elements:", elementsToRemove);
+
     const replaceTables = () => {
       // Find all tables
       const tables = $("table");
@@ -154,7 +153,7 @@ export async function getArticle(slug: string) {
     };
     replaceTables();
 
-    console.log('replaced tables')
+    console.log("replaced tables");
 
     /*
     const parseGallery = async () => {
@@ -207,18 +206,20 @@ export async function getArticle(slug: string) {
 
     $("form").remove();
 
-      // Move <br> out of <strong> tags
-      $("strong br").each((index, element) => {
-        $(element).insertAfter($(element).parent());
-      });
+    console.log("removed form");
 
-      
+    // Move <br> out of <strong> tags
+    $("strong br").each((index, element) => {
+      $(element).insertAfter($(element).parent());
+    });
+
+    console.log("moved br out of strong");
 
     let markdown = turndownService.turndown(
       $("div .entry-content").html() || ""
     );
 
-    console.log('turndownService.turndown')
+    console.log("turndownService.turndown");
 
     // Fixes lists that are not formatted correctly
     // find all llnes that begin with \- and remove the backslash and add a space between the - and the text
@@ -241,7 +242,6 @@ export async function getArticle(slug: string) {
       });
     }
 
-    
     // Fixes over two new lines
     const regex3 = /(\n{2,})/gm;
     const matches3 = markdown.match(regex3);
@@ -254,11 +254,9 @@ export async function getArticle(slug: string) {
     // Replace all "fake dashes"  like –  (U+2013) with - (U+002D)
     markdown = markdown.replace(/–/g, "-");
 
-
-
     const title = $("h1.header-post-title-class").html();
 
-    console.log('returning article')
+    console.log("returning article");
 
     return {
       title: title || "Brak tytułu",
@@ -271,7 +269,6 @@ export async function getArticle(slug: string) {
   }
 }
 
-
 export async function getMenus() {
   try {
     // Fetch HTML content from the URL
@@ -282,49 +279,59 @@ export async function getMenus() {
     const $ = cheerio.load(html);
 
     const menus: {
-        title: string,
-        links: {
-            name: string,
-            url: string
-        }[]
+      title: string;
+      links: {
+        name: string;
+        url: string;
+      }[];
     }[] = [];
-    
 
-    const disallowedLinks = ['/category/aktualnosci/', '/plan-lekcji/', '/dzwonki/', ' /galeria/', '/category/rada-rodzicow/', '/konkurs-maly-pitagoras/', '/dziennik-elektroniczny/', '/kontakt/', 'https://sp1ozarow.bip.gov.pl/']
+    const disallowedLinks = [
+      "/category/aktualnosci/",
+      "/plan-lekcji/",
+      "/dzwonki/",
+      " /galeria/",
+      "/category/rada-rodzicow/",
+      "/konkurs-maly-pitagoras/",
+      "/dziennik-elektroniczny/",
+      "/kontakt/",
+      "https://sp1ozarow.bip.gov.pl/",
+    ];
 
     // Find the div with id="content" and iterate over each article
-    $('.widget_nav_menu').each((index, element) => {
-        const title = $(element).find('h3.widget-title').text().trim();
-        const links: {
-            name: string,
-            url: string
-        }[] = [];
-        $(element).find('ul li.menu-item').each((index, element) => {
-            const link = $(element).find('a');
-            const rawUrl = link.attr('href');
+    $(".widget_nav_menu").each((index, element) => {
+      const title = $(element).find("h3.widget-title").text().trim();
+      const links: {
+        name: string;
+        url: string;
+      }[] = [];
+      $(element)
+        .find("ul li.menu-item")
+        .each((index, element) => {
+          const link = $(element).find("a");
+          const rawUrl = link.attr("href");
 
-            // if is file: return the file url
-            // if not: return the slug
+          // if is file: return the file url
+          // if not: return the slug
 
-            const endsWithFile =! rawUrl?.endsWith('/')
-            if(['#'].includes(rawUrl!)) {
-                return;
-            }
-            const url = new URL(rawUrl || '')
+          const endsWithFile = !rawUrl?.endsWith("/");
+          if (["#"].includes(rawUrl!)) {
+            return;
+          }
+          const url = new URL(rawUrl || "");
 
-
-            links.push({
-                name: $(element).text().trim(),
-                url:(endsWithFile ? rawUrl : url.pathname) || ''
-            });
+          links.push({
+            name: $(element).text().trim(),
+            url: (endsWithFile ? rawUrl : url.pathname) || "",
+          });
         });
-        menus.push({
-            title,
-            links: links.filter(link => !disallowedLinks.includes(link.url))
-        })
+      menus.push({
+        title,
+        links: links.filter((link) => !disallowedLinks.includes(link.url)),
+      });
     });
-    return menus
+    return menus;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
   }
 }
