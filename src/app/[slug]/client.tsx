@@ -41,8 +41,7 @@ export default function ArticleContentComponent({
     image(src, alt, title) {
       if (src.startsWith('http')) {
         return (
-                  // eslint-disable-next-line @next/next/no-img-element
-
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             className="rounded-lg"
             src={`/api/image?image=${src}`}

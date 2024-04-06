@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/pagination"
 import { redirect } from "next/navigation";
 import { ResolvingMetadata } from "next"
+import ArticleDate from "./date";
 
 
 
@@ -105,13 +106,7 @@ export default async function CategoryPage({ params, searchParams }: { params: {
               </CardDescription>
             </CardHeader>
             <CardFooter className="justify-between">
-              <span className="flex flex-row justify-center items-center gap-1 text-sm text-muted-foreground">
-                <Clock size={16} className="text-card-foreground" />
-                {post.date.toLocaleDateString()} {post.date.toLocaleTimeString(undefined, {
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}
-              </span>
+              <ArticleDate date={post.date} />
               <Button variant="link">
                 <Link href={`/${post.slug}${params.category !== 'aktualnosci' ? `?category=${params.category}` : ''}`}>
                   Czytaj
